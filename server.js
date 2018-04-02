@@ -48,25 +48,36 @@ app.post('/createAccount', (req, res) => {
     });
   });
 });
-
 app.post("/signIn", (req, res) => {
   client.query(`select * from users where username='${req.body.username}'`, (err, result) => {
     if (err) {
       res.json(err);
       console.error('error running query', err);
     } else {
-      res.json(result.rows[0]);
+       res.json(result.rows[0]);
+      // var timeStamp =  moment().format('lll');
+     // console.log(timeStamp);
+      // client.query(`update users set (last_login) values array[${timeStamp}]`,(err, result) =>{
+      //   if (err) {
+      //     res.json(err);
+      //     console.error('error running query', err);
+      //   } else {
+      //     res.json(user);
+      //   }
+      // })
     }
   });
 });
 
+
+//return all hobbies attached to user identified with id
 app.post("/getHobbies", (req, res) => {
   client.query(`select * from hobbies where userid='${req.body.userId}'`, (err, result) => {
     if (err) {
       res.json(err);
       console.error('error running query', err);
     } else {
-      res.json(result.rows[0]);
+      res.json(result.rows);
     }
   });
 });
